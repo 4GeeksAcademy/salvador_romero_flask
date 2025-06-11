@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Predicción de Personalidad</title>
+</head>
+<body>
+    <h2>Formulario para Predecir la Personalidad</h2>
+    <form action="/predecir" method="post">
+        <label>Time Spent Alone:</label><br>
+        <input type="number" step="any" name="Time_spent_Alone"><br><br>
+
+        <label>Stage Fear:</label><br>
+        <input type="number" step="any" name="Stage_fear"><br><br>
+
+        <label>Social Event Attendance:</label><br>
+        <input type="number" step="any" name="Social_event_attendance"><br><br>
+
+        <label>Going Outside:</label><br>
+        <input type="number" step="any" name="Going_outside"><br><br>
+
+        <label>Drained After Socializing:</label><br>
+        <input type="number" step="any" name="Drained_after_socializing"><br><br>
+
+        <label>Friends Circle Size:</label><br>
+        <input type="number" step="any" name="Friends_circle_size"><br><br>
+
+        <label>Post Frequency:</label><br>
+        <input type="number" step="any" name="Post_frequency"><br><br>
+
+        <input type="submit" value="Predecir">
+    </form>
+
+    {% if prediccion %}
+        <h3>{{ prediccion }}</h3>
+    {% endif %}
+</body>
+</html>
