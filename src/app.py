@@ -4,7 +4,7 @@ import numpy as np
 
 app = Flask(__name__)
 
-model = joblib.load('../models/modelo_personalidad.pkl')
+model = joblib.load('modelo_personalidad.pkl')
 
 @app.route('/')
 def home():
@@ -12,18 +12,23 @@ def home():
 
 @app.route('/predecir', methods=['POST'])
 def predecir():
+    stage_fear = 1 if request.form['Stage_fear'] == 'Yes' else 0
+    drained = 1 if request.form['Drained_after_socializing'] == 'Yes' else 0
+
     datos = [
         float(request.form['Time_spent_Alone']),
-        float(request.form['Stage_fear']),
+        stage_fear,
         float(request.form['Social_event_attendance']),
         float(request.form['Going_outside']),
-        float(request.form['Drained_after_socializing']),
+        drained,
         float(request.form['Friends_circle_size']),
         float(request.form['Post_frequency'])
     ]
     prediccion = model.predict([datos])[0]
 
-    return render_template('index.html', prediccion=f'Tu personalidad es: {prediccion}')
+    personalidad = "Introvert" if prediccion == 1 else "Extrovert"
+
+    return render_template('index.html', prediccion=f'Your personality is: {personalidad}')
 
 if __name__ == '__main__':
     app.run(debug=True)
