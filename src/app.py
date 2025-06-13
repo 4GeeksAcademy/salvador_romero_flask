@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 import joblib
 import numpy as np
-
+import os
 app = Flask(__name__)
 
 model = joblib.load('modelo_personalidad.pkl')
@@ -31,4 +31,5 @@ def predecir():
     return render_template('index.html', prediccion=f'Your personality is: {personalidad}')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))  # Render asigna el puerto
+    app.run(host='0.0.0.0', port=port)
